@@ -1,12 +1,15 @@
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
 <p id="notice"></p>
 <p class="show">
   <strong class="show1">Title:</strong>
-  リーダブルコード
+<%= @book.title %>
 </p>
 <p class="show">
   <strong>Body:</strong>
-  より良いコードを書くためのシンプルで実践的なテクニック
+<%= @book.body %>
 </p>
-<a class="edit_1634" href="/books/1634/edit">Edit</a>
+<%= link_to 'Edit', edit_book_path(@book) %>
 <a class="back" href="/books">Back</a>
 

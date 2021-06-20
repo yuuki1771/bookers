@@ -1,22 +1,23 @@
 <h1 class="edit">Editing Book</h1>
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>error
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
 <%= form_with model:@book, local: true do |f| %>
-<form class="edit_book" id="edit_book_1653" action="/books/1653" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="oBzmh6zLVBb3tMPpJRr4IN7h6fyf+aql7CUcLHKUFh+LF7WRL6s4FSyAMiK1270lPhoQ20JOdf6vrQcaLa7oog==">
 
   <div class="field">
-    <label for="book_title">Title</label>
-    <input class="book_title" type="text" value="リーダブルコード" name="book[title]" id="book_title">
+    <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <label for="book_body">Body</label>
-    <textarea class="book_body" name="book[body]" id="book_body">より良いコードを書くためのシンプルで実践的なテクニック</textarea>
+    <%= f.text_area :body %>
   </div>
 
   <div class="oactins">
     <input type="submit" name="commit" value="Update Book" data-disable-with="Update Book">
   </div>
-</form>
-<a class="show_1653" href="/books/1653">Show</a>
-<a class="back" href="/books">Back</a>
-
 <% end %>
+<%= link_to 'Show', book_path(@book) %>
+<%= link_to 'Back', books_path  %>

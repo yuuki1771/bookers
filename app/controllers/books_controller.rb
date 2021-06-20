@@ -5,47 +5,46 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id])
   end
 
   def new
   end
 
-   def create
-    book = Book.new(book_params)
-    book.save
-    redirect_to books_path
-    
-    @book = @group.book.new(book_params)
-    if @book.save
-        redirect_to group_books_path(@group), notice: 'メッセージが送信されました'
+  def create
+   @book = Book.new(book_params)
+   if @book.save
+     flash[:notice] = 'Book was successfully created.'
+      redirect_to book_path(@book)
+   else
+      @books = Book.all
+      render :index
+   end
+  end
+
+  def edit
+    @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      flash[:notice] = 'Book was successfully created.'
+      redirect_to book_path(@book)
     else
-        flash.now[:alert] = 'メッセージを入力してください'
-        render :index
-        
-        
-        
+      render :edit
     end
-   end
+  end
 
-   def edit
-    
-   end
-  
-   def update
-    book = Blog.find(params[:id])
-    book.update(book_params)
-    redirect_to book_path(book)
-   end
-
-   def destroy
+  def destroy
     book = Book.find(params[:id])
     book.destroy
     redirect_to books_path
-   end
+  end
 
 
-   private
+private
   def book_params
-    params.require(:book).permit(:title, :category, :body)
+    params.require(:book).permit(:title, :body)
   end
 end
